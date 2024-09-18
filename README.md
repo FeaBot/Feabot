@@ -1,16 +1,28 @@
-## Hi there 👋
+## FeaBot
 
-<!--
-**FeaBot/Feabot** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+FeaBot is an open-source AI robot in both software and hardware, aiming to utilize the next-generation **AI chips** to create a new generation of **flexible**, **efficient**, and **adaptable** AI robots that can continuously evolve according to different scenarios. Currently, it primarily targets smart home scenarios, serving as a companion robot that focuses on **visual perception, features voice interaction capabilities, autonomous planning and navigation functions, four-wheel-drive motion control, and intelligent inspection** functions. This intelligent inspection robot is merely the starting point of the project, not the end. The ultimate core vision of the project lies in promoting the continuous evolution and application of AI robot technology.
 
-Here are some ideas to get you started:
+With **visual perception** as its core driving force, FeaBot boasts keen "eyes" that can accurately capture environmental details. It is also equipped with an advanced **voice interaction system,** enabling natural and smooth dialogue experiences with users. Its **four-wheel-drive motion** control system ensures stable movement and efficient navigation in various terrains and complex home environments, demonstrating remarkable autonomous planning capabilities.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+Particularly noteworthy is FeaBot's integration of intelligent inspection functions. As a highlight of the project's launch, it not only serves as a caring companion for daily life, providing companionship and entertainment, but also transforms into a guardian of home security during critical moments, automatically executing inspection tasks, promptly identifying and reporting potential safety hazards.
+
+## Why create FeaBot?
+
+Currently, there are numerous open-source robot software projects based on ROS, but their functionalities are fragmented, with room for improvement in ease of use and modularity. The computing power and capabilities of the main processors used may not adequately meet the requirements of running the latest AI algorithms, or they may suffer from issues such as high costs, large sizes, high power consumption, and slow startup speeds. For instance, the perception module is a highly universal component for robots, yet each robot product seems to be reinventing the wheel, which is clearly unnecessary. FeaBot is committed to leveraging current edge AI computing processors that align with AI development trends, combined with advanced or mature AI technologies, software, and hardware engineering techniques, to create a new generation of flexible, efficient, and adaptable general-purpose robot software platforms and robot hardware.
+
+NVIDIA's Orin processor and the still-under-development Thor processor are powerful but costly. They are suitable for applications in expensive high-end smart cars for intelligent driving or in some robot domains where cost sensitivity is low. However, for consumer-grade scenarios like smart home robots and park inspection robots, these chips appear overly expensive and power-hungry. The AI hardware core of FeaBot robots should meet scenario-specific application demands rather than striving for the most powerful (and correspondingly, the most expensive) performance.
+
+Since 2020, I have been paying attention to and searching for AI chips that can meet the needs of consumer-grade AI robots. From the earliest Rockchip **RV1109** and **RV1126** to later **TI's TDA4 chip**, Rockchip's **RK3568** and **RK3588** chips, to NVIDIA's **Orin** released last year, and recently, Horizon Robotics' **Sunrise X3** chip, these AI-capable chips all possess outstanding performance.
+
+## **The key technical points of this robot**
+
+Considering that FeaBot is designed to be a robot with voice interaction, perception, localization, planning, navigation, and motion control functions:
+
+*   It possesses voice interaction capabilities, enabling smooth and friendly language communication with humans and responding to human language intentions. With the rise of **LLM** model technology, speech-to-text (**ASR**) accuracy has reached exceptionally high levels, and text-to-speech (**TTS**) effects mimic human voices almost seamlessly. The project will also attempt to utilize these cutting-edge technologies in real-time locally rather than relying on the cloud.
+*   The primary scenarios it faces are indoor environments and enclosed park areas, with a focus on visual perception and the need for real-time video transmission to remote operation terminals (such as user mobile apps). Therefore, the AI processor must have the capability to process at least one camera video stream and support H.264 or H.265 video hardware encoding. For scalability, the processor should at least support the processing of two video inputs.
+*   As the cost of 2D lidar decreases, equipping consumer robots with 2D lidar has become commonplace. Hence, the AI processor must be capable of processing at least two 2D lidar data streams. However, FeaBot's ultimate goal is to completely eliminate 2D lidar by adopting a cost-optimal visual perception solution.
+*   The realization of visual perception requires the **AI chip** to have an inbuilt **NPU**.
+*   In FeaBot, using an independent **MCU** as the chassis motion control unit is ideal for ensuring **real-time performance**. If the AI processor has an inbuilt MCU unit, it would be even more suitable.
+*   Considering real-time requirements and facilitating the development of upper-level robot AI software, the underlying system should adopt a **Linux system**. For motion control with higher real-time requirements, real-time operating systems like **Free RTOS** can be selected.
+*   Consumer robots typically carry lithium batteries with limited capacity; therefore, the power consumption of the AI processor needs to be controlled at a low level to ensure the robot's battery life. An AI processor with a power consumption within 5W would be suitable.
+*   Planning and navigation place high demands on CPU resources while also requiring the simultaneous operation of networking, video processing, and control software. Based on my actual experience with such robots, the AI chip's **CPU should have at least four cores**, with each CPU core being at least  armA53 or above.
